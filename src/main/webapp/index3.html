@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="./yui3/build/yui/yui-min.js"></script>
+		<script>
+			YUI().use("datatable", function (Y) {
+				// Columns must match data object property names
+				var data = [
+				    { id: "ga-3475", firstName: "gadget",lastName: "tanaka", price: "$6.99", cost: "$5.99" },
+				    { id: "sp-9980", name: "sprocket", price: "$3.75", cost: "$3.25" },
+				    { id: "wi-0650", name: "widget",   price: "$4.25", cost: "$3.75" }
+				];
+				
+				var table = new Y.DataTable({
+				    columns: [{ key:"id",label:"id",allowHML:true,
+								nodeFormatter: function (o) {
+									var name = o.data.name;
+
+									if (name = "gadget") {
+										//prefix = '-' + prefix;
+										//profit = Math.abs(profit);
+										row = o.cell.ancestor();
+										//o.cell.addClass('negative');
+											
+										// Assign a rowspan to the first cell and add a new row
+										// below this one to span the last three columns
+										row.one('td').setAttribute('rowspan', 1);
+										o.cell.set('text', o.data.id);
+										o.cell.addClass('negative');
+										//row.insert(
+										//	'<tr class="auth"><td colspan="3">' +
+										//		'<button class="ok">authorize</button>' +
+										//		'<button class="stop">discontinue</button>' +
+										//	'</td></tr>',
+										//	'after');
+									}
+									return false;
+								}
+							}, {
+								label: 'Name',
+								children: [
+									{ key: 'firstName' },
+									{ key: 'lastName' }
+								]
+							}, {key:price},
+				    data: data,
+				
+				    // Optionally configure your table with a caption
+				    caption: "My first DataTable!",
+				
+				    // and/or a summary (table attribute)
+				    summary: "Example DataTable showing basic instantiation configuration"
+				});
+				
+				table.render("#simple");
+			
+			});
+			
+			
+		</script>
+	</head>
+	<body>
+		<div class="example yui3-skin-sam"> <!-- You need this skin class -->
+		
+		    <div id="simple"></div>
+		
+		    <div id="labels"></div>
+		</div>
+	</body>
+	
+</html>

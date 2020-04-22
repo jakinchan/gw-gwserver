@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="./yui3/build/yui/yui-min.js"></script>
+		<script>
+			
+			YUI().use("datatable", function (Y) {
+				var columns = [
+					{
+						label: 'id',
+						key: 'id',
+						formatter: '{value}',
+						nodeFormatter: function (o) {
+							var kbn = o.data.kbn,
+								prefix = '',
+								row;
+									
+							if (kbn = "1") {
+								//prefix = '-' + prefix;
+								//profit = Math.abs(profit);
+								row = o.cell.ancestor();
+								
+								//o.cell.addClass('negative');
+									
+								// Assign a rowspan to the first cell and add a new row
+								// below this one to span the last three columns
+								row.one('td').setAttribute('rowspan', 1);
+									
+								//row.insert(
+								//	'<tr class="auth"><td colspan="3">' +
+								//		'<button class="ok">authorize</button>' +
+								//		'<button class="stop">discontinue</button>' +
+								//	'</td></tr>',
+								//	'after');
+							}
+									
+							//o.cell.set('text', prefix + profit.toFixed(2));
+							return false;
+						}
+					},
+					{
+						key: 'kbn',
+						formatter: '{value}' // formatter template string
+					},
+					{
+						key: 'price',
+						formatter: '{value}' // formatter template string
+					}
+				];
+				// A table from data with keys that work fine as column names
+				var simple = new Y.DataTable({
+					columns,
+					data   : [
+						{ id: "11", kbn: "1", price: "$6.99" },
+						{ id: "22", kbn: "2", price: "$3.75" },
+						{ id: "33", kbn: "3", price: "$4.25" }
+					],
+					summary: "Price sheet for inventory parts",
+					caption: "Example table with simple columns"
+				});
+			
+				simple.render("#simple");
+			
+			});
+			
+		</script>
+	</head>
+	<body>
+		hello world
+		<div class="example yui3-skin-sam"> <!-- You need this skin class -->
+		
+		    <div id="simple"></div>
+		
+		    <div id="labels"></div>
+		</div>
+	</body>
+	
+</html>

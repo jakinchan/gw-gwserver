@@ -1,10 +1,81 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Start Page</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="./yui3/build/yui/yui-min.js"></script>
+		<script>
+			YUI().use("datatable", function (Y) {
+				// Basic
+				//var columns = [{ key: 'firstName' }, { key: 'lastName' }, { key: 'age' }];
+				
+				// For columns without any additional configuration, strings can be used
+				//var columns = ['firstName', 'lastName', 'age'];
+				
+				// Multi-row column headers (see DataTable.HeaderView for details)
+				//r columns = [
+				//	{
+				//		label: 'Name',
+				//		children: [
+				//			{ key: 'firstName' },
+				//			{ key: 'lastName' }
+				//		]
+				//	},
+				//	'age' // mixing and matching objects and strings is ok
+				//
+				
+				// Including columns that are not related 1:1 to row data fields/attributes
+				// (See DataTable.BodyView for details)
+				var columns = [
+					{
+						label: 'Name', // Needed for the column header
+						formatter: function (o) {
+							// Fill the column cells with data from firstName and lastName
+							if (o.data.age == "20") {
+								o.className += ' senior';
+								return o.data.lastName + ', ' + o.data.firstName;
+							}else {
+								return o.data.lastName + ' ' + o.data.firstName;
+							}
+							
+						}
+					},
+					'age'
+				];
+				
+				// Columns that include feature configurations (for illustration; not all
+				// features are available today).
+				//var columns = [
+				//	{ type: 'checkbox', defaultChecked: true },
+				//	{ key: 'firstName', sortable: true, resizable: true, min-width: '300px' },
+				//	{ key: 'lastName', sortable: true, resizable: true, min-width: '300px' },
+				//	{ key: 'age', emptyCellValue: 'unknown' }
+				//];
+				
+				var simple = new Y.DataTable({
+					columns,
+					data   : [
+						{ firstName: "chin", lastName: "shuji", age: "6" },
+						{ firstName: "田中", lastName: "ana", age: "20" },
+						{ firstName: "山田", lastName: "ken", age: "30" }
+					],
+					summary: "Price sheet for inventory parts",
+					caption: "Example table with simple columns"
+				});
+			
+				simple.render("#simple");
+			
+			});
+			
+		</script>
+	</head>
+	<body>
+		<div class="example yui3-skin-sam"> <!-- You need this skin class -->
+		
+		    <div id="simple"></div>
+		
+		    <div id="labels"></div>
+		</div>
+	</body>
+	
 </html>
